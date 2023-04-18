@@ -1,19 +1,41 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
+const SignUp = () => {
 
+  const [error, setError]=useState('')
 
-const Login = () => {
-  return (
-    <div>
+    const handleSignUp=event=>{
+
+      setError('');
+      event.preventDefault();
+
+      const form = event.target;
+      const email = form.email.value;
+      const password = form.password.value;
+      const confirmPassword = form.confirmPassword.value;
+
+      if (password !== confirmPassword) {
+        setError("Did not match")
+        return;
+      }
+      else if(password.length < 6){
+        setError("Password must be six character");
+        return;
+      }
+
+      console.log(email, password, confirmPassword);
+    }
+
+    return (
+        <div>
       <div className="hero ">
         <div className="hero-content flex-col">
           <div className="text-center">
-            <h1 className="text-5xl font-lato">Login now!</h1>
+            <h1 className="text-5xl font-lato">Sign up now!</h1>
           </div>
           <div className="card p-3 flex-shrink-0 w-full shadow-2xl">
-            <form className="card-body">
+            <form onSubmit={handleSignUp} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -30,12 +52,12 @@ const Login = () => {
                 <label className="label">
                   <span className="label-text">Password</span>
                 </label>
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="password"
-                  className="input input-bordered"
-                  required
+                <input type="password" name="password" placeholder="password" className="input input-bordered" required
+                />
+                <label className="label">
+                  <span className="label-text">Confirm Password</span>
+                </label>
+                <input type="password" name="confirmPassword" placeholder="password" className="input input-bordered" required
                 />
                 <label className="label">
                   <a href="#" className="label-text-alt link link-hover">
@@ -44,16 +66,17 @@ const Login = () => {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-warning">Login</button>
+                <button className="btn btn-warning">Sign Up</button>
               </div>
               <div className="my-2">
                 <p>
-                  New to Ema-john?{" "}
-                  <Link className="text-warning" to="/signup">
-                    Create New Account
+                  Already Have an account?
+                  <Link className="text-warning" to="/login">
+                    Login
                   </Link>
                 </p>
               </div>
+              <p className='text-error'>{error}</p>
 
               <fieldset className=" border-t-2 border-gray-600">
                 <legend className="mx-auto px-4  text-2xl italic">
@@ -68,7 +91,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default Login;
+export default SignUp;
