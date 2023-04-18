@@ -1,10 +1,39 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import { Link } from "react-router-dom";
-
-
+import React, { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProviders";
 
 const Login = () => {
+  const [error,setError] =useState('')
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+
+
+  const from = location.state?.from?.pathname ||"/";
+
+
+  const {loginUser,}=useContext(AuthContext)
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    loginUser(email,password)
+    .then(result=>{
+      const loggedUser =result.user;
+      
+      form.reset()
+      navigate(from,{replace:true})
+    })
+    .catch(error=>{
+      setError(error.message);
+    })
+  };
+
   return (
     <div>
       <div className="hero ">
@@ -13,7 +42,7 @@ const Login = () => {
             <h1 className="text-5xl font-lato">Login now!</h1>
           </div>
           <div className="card p-3 flex-shrink-0 w-full shadow-2xl">
-            <form className="card-body">
+            <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -54,14 +83,16 @@ const Login = () => {
                   </Link>
                 </p>
               </div>
+              <p>{error}</p>
 
               <fieldset className=" border-t-2 border-gray-600">
-                <legend className="mx-auto px-4  text-2xl italic">
-                  OR
-                </legend>
+                <legend className="mx-auto px-4  text-2xl italic">OR</legend>
               </fieldset>
               <div className="mx-auto">
-                <button className="btn btn-outline hover:bg-warning"> Login with Google</button>
+                <button className="btn btn-outline hover:bg-warning">
+                  {" "}
+                  Login with Google
+                </button>
               </div>
             </form>
           </div>

@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../providers/AuthProviders';
 
 const SignUp = () => {
 
   const [error, setError]=useState('')
+
+  const {createUser}= useContext(AuthContext)
 
     const handleSignUp=event=>{
 
@@ -24,17 +27,26 @@ const SignUp = () => {
         return;
       }
 
-      console.log(email, password, confirmPassword);
+      createUser(email,password)
+      .then(result=>{
+        const loggedUser= result.user;
+      })
+      .catch(error=>{
+        setError(error.message)
+      })
+      form.reset()
+
+      // console.log(email, password, confirmPassword);
     }
 
     return (
-        <div>
+        <div className=''>
       <div className="hero ">
         <div className="hero-content flex-col">
           <div className="text-center">
             <h1 className="text-5xl font-lato">Sign up now!</h1>
           </div>
-          <div className="card p-3 flex-shrink-0 w-full shadow-2xl">
+          <div className="card p-3 flex-shrink-0 w-full md:w-96  shadow-2xl">
             <form onSubmit={handleSignUp} className="card-body">
               <div className="form-control">
                 <label className="label">
