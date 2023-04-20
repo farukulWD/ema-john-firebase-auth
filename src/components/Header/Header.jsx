@@ -81,7 +81,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-             {user && <p className="flex items-center gap-2"> <img className="w-10 h-10 rounded-full" src={user.photoURL} alt="" />
+             {user && <p className="flex items-center gap-2"> <img className="w-7 h-7 rounded-full" src={user.photoURL} alt="" />
                  <Link className=' text-white ml-3' onClick={handleLogout}>log out</Link>
             </p>}
         </div>
