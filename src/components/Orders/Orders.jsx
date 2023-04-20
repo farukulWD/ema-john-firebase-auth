@@ -21,7 +21,7 @@ const Orders = () => {
     }
 
     return (
-        <div className='shop-container'>
+        <div className='md:flex p-4'>
             <div className='review-container'>
                 {
                     cart.map(product => <ReviewItem
@@ -37,7 +37,7 @@ const Orders = () => {
                     handleClearCart={handleClearCart}
                 >
                     <Link className='proceed-link' to="/checkout">
-                        <button className='btn-proceed'>Proceed Checkout</button>
+                        <button className='btn bg-error w-full'>Proceed Checkout</button>
                     </Link>
                 </Cart>
             </div>

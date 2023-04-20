@@ -14,6 +14,8 @@ const Header = () => {
     .then(error=>console.error(error))
   };
 
+  console.log(user);
+
   return (
 
     <div>
@@ -38,7 +40,7 @@ const Header = () => {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-[#1C2B35] rounded-box w-52"
             >
               <li >
                 <Link className="hover:bg-orange-400" to="/">Shop</Link>{" "}
@@ -79,7 +81,7 @@ const Header = () => {
           </ul>
         </div>
         <div className="navbar-end">
-             {user && <p> <span className='text-white'>{user.email}</span>
+             {user && <p className="flex items-center gap-2"> <img className="w-10 h-10 rounded-full" src={user.photoURL} alt="" />
                  <Link className=' text-white ml-3' onClick={handleLogout}>log out</Link>
             </p>}
         </div>

@@ -15,7 +15,7 @@ const Login = () => {
   const from = location.state?.from?.pathname ||"/";
 
 
-  const {loginUser,}=useContext(AuthContext)
+  const {loginUser,googleLogin}=useContext(AuthContext)
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -34,6 +34,18 @@ const Login = () => {
       setError(error.message);
     })
   };
+
+
+  const handleGoogleLogin=()=>{
+    googleLogin()
+    .then(result=>{
+      const loggedUser = result.user;
+      console.log(loggedUser);
+    })
+    .catch(error=>{
+      setError(error.message);
+    })
+  }
 
   return (
     <div>
@@ -91,7 +103,7 @@ const Login = () => {
                 <legend className="mx-auto px-4  text-2xl italic">OR</legend>
               </fieldset>
               <div className="mx-auto">
-                <button className="btn btn-outline hover:bg-warning">
+                <button onClick={handleGoogleLogin} className="btn btn-outline hover:bg-warning">
                   {" "}
                   Login with Google
                 </button>

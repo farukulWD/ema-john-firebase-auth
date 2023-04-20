@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { addToDb, deleteShoppingCart, getShoppingCart } from '../../utilities/fakedb';
 import Cart from '../Cart/Cart';
 import Product from '../Product/Product';
-import './Shop.css';
+
 import { Link } from 'react-router-dom';
 
 const Shop = () => {
@@ -62,8 +62,8 @@ const Shop = () => {
     }
 
     return (
-        <div className='shop-container'>
-            <div className="products-container">
+        <div className=' shop-container px-4 md:flex justify-between gap-5'>
+            <div className="grid md:grid-cols-3 gap-4">
                 {
                     products.map(product => <Product
                         key={product.id}
@@ -72,13 +72,13 @@ const Shop = () => {
                     ></Product>)
                 }
             </div>
-            <div className="cart-container">
+            <div className="">
                 <Cart
                     cart={cart}
                     handleClearCart={handleClearCart}
                 >
                     <Link className='proceed-link' to="/orders">
-                        <button className='btn-proceed'>Review Order</button>
+                        <button className='btn w-full'>Review Order</button>
                     </Link>
                 </Cart>
             </div>
