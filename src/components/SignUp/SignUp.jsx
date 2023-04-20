@@ -6,7 +6,7 @@ const SignUp = () => {
 
   const [error, setError]=useState('')
 
-  const {createUser,googleLogin}= useContext(AuthContext)
+  const {createUser,googleLogin,facebookLogin}= useContext(AuthContext)
 
     const handleSignUp=event=>{
 
@@ -47,6 +47,16 @@ const SignUp = () => {
       })
       .catch(error=>{
         setError(error.message);
+      })
+    }
+    const handleFB=()=>{
+      facebookLogin()
+      .then(result=>{
+        const loggedUser= result.user;
+        console.log(loggedUser); 
+      })
+      .catch(error=>{
+        setError(error.message)
       })
     }
 
@@ -108,6 +118,7 @@ const SignUp = () => {
               </fieldset>
               <div className="mx-auto">
                 <button onClick={handleGoogleLogin} className="btn btn-outline hover:bg-warning"> Login with Google</button>
+                <button className="btn btn-outline hover:bg-warning" onClick={handleFB}>facebook</button>
               </div>
             </form>
           </div>

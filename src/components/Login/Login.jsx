@@ -15,7 +15,7 @@ const Login = () => {
   const from = location.state?.from?.pathname ||"/";
 
 
-  const {loginUser,googleLogin}=useContext(AuthContext)
+  const {loginUser,googleLogin,facebookLogin}=useContext(AuthContext)
 
   const handleLogin = (event) => {
     event.preventDefault();
@@ -35,7 +35,7 @@ const Login = () => {
     })
   };
 
-
+console.log(facebookLogin);
   const handleGoogleLogin=()=>{
     googleLogin()
     .then(result=>{
@@ -44,6 +44,17 @@ const Login = () => {
     })
     .catch(error=>{
       setError(error.message);
+    })
+  }
+
+  const handleFB=()=>{
+    facebookLogin()
+    .then(result=>{
+      const loggedUser= result.user;
+      console.log(loggedUser); 
+    })
+    .catch(error=>{
+      setError(error.message)
     })
   }
 
@@ -107,6 +118,7 @@ const Login = () => {
                   {" "}
                   Login with Google
                 </button>
+                <button className="btn btn-outline hover:bg-warning" onClick={handleFB}>facebook</button>
               </div>
             </form>
           </div>

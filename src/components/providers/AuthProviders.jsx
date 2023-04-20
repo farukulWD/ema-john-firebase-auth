@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   GoogleAuthProvider,
   signInWithPopup,
+  FacebookAuthProvider,
 } from "firebase/auth";
 import app from "../../firebase/firebase.config";
 
@@ -14,6 +15,7 @@ export const AuthContext = createContext(null);
 
 const Auth = getAuth(app);
 const googleProvider =new GoogleAuthProvider();
+const facebookProvider= new FacebookAuthProvider();
 
 const AuthProviders = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -39,6 +41,10 @@ const AuthProviders = ({ children }) => {
     signInWithPopup(Auth,googleProvider);
   }
 
+  const facebookLogin= ()=>{
+    signInWithPopup(Auth, facebookProvider);
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(Auth, (currentUser) => {
       setUser(currentUser);
@@ -55,7 +61,8 @@ const AuthProviders = ({ children }) => {
     createUser,
     loginUser,
     logout,
-    googleLogin
+    googleLogin,
+    facebookLogin
   };
   return (
     <AuthContext.Provider value={AuthInfo}>{children}</AuthContext.Provider>
